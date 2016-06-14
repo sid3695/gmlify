@@ -1,8 +1,36 @@
 import xml.etree.ElementTree as ET
 from StringIO import StringIO
 from xml.dom import minidom
+import random
 
-str1 = "<?xml version='1.0' encoding='UTF-8' standalone='no'?><graphml xmlns='http://graphml.graphdrawing.org/xmlns' xmlns:java='http://www.yworks.com/xml/yfiles-common/1.0/java' xmlns:sys='http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0' xmlns:x='http://www.yworks.com/xml/yfiles-common/markup/2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:y='http://www.yworks.com/xml/graphml' xmlns:yed='http://www.yworks.com/xml/yed/3' xsi:schemaLocation='http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd'><key attr.name='Description' attr.type='string' for='graph' id='d0'/><graph edgedefault='directed' id='G'><node id='n0'><data key='d0'><![CDATA[Test1]]></data><label> 1 </label></node><node id='n1'><data key='d0'><![CDATA[Test2]]></data></node><edge id='e6' source='n0' target='n1'></edge></graph></graphml>"
+str1 = """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+
+ <key attr.name="De" attr.type="string" for="node" id="d0"/>
+
+
+  <graph edgedefault="directed" id="G">
+  	 <node id="n0">
+  	 	 <data key="d0"><![CDATA[Test1]]></data>
+  	 	 <label> 1 </label>
+  	 </node>
+  	 <node id="n1">
+  	 	 <data key="d0"><![CDATA[Test2]]></data>
+  	 </node>
+  	 <node id="n2">
+  	 	 <data key="d0"><![CDATA[Test2]]></data>
+  	 </node>
+  	 <node id="n3">
+  	 	 <data key="d0"><![CDATA[Test2]]></data>
+  	 </node>
+  	 <edge id="e6" source="n0" target="n1"></edge>
+  	 <edge id="e7" source="n1" target="n3"></edge>
+  	 <edge id="e8" source="n2" target="n3"></edge>
+  	 	
+  	 
+  </graph>
+ </graphml>
+"""
 ks2  = "<key "
 ks3 = "</graphml>"
 broiler_plate = "<?xml version='1.0' encoding='UTF-8' standalone='no'?><graphml xmlns='http://graphml.graphdrawing.org/xmlns' xmlns:java='http://www.yworks.com/xml/yfiles-common/1.0/java' xmlns:sys='http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0' xmlns:x='http://www.yworks.com/xml/yfiles-common/markup/2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:y='http://www.yworks.com/xml/graphml' xmlns:yed='http://www.yworks.com/xml/yed/3' xsi:schemaLocation='http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd'>"
@@ -49,7 +77,9 @@ for neighbor in root[1].iter('node'):
 	#print ET.tostring(neighbor)
 	#print '##########'
 	x += 80
-	y += 80
+	y += random.randint(-160, 160)
+	if y <= 20:
+		y = 213
 	i += 1
 	
 top = ET.Element('top')
