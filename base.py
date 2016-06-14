@@ -12,13 +12,15 @@ str1 = """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <graph edgedefault="directed" id="G">
   	 <node id="n0">
   	 	 <data key="d0"><![CDATA[Test1]]></data>
-  	 	 <label> 1 </label>
+  	 	 <label> Event1 </label>
   	 </node>
   	 <node id="n1">
   	 	 <data key="d0"><![CDATA[Test2]]></data>
+  	 	 <label> Event2 </label>
   	 </node>
   	 <node id="n2">
   	 	 <data key="d0"><![CDATA[Test2]]></data>
+  	 	 <label> Event3 </label>
   	 </node>
   	 <node id="n3">
   	 	 <data key="d0"><![CDATA[Test2]]></data>
@@ -30,6 +32,7 @@ str1 = """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   	 
   </graph>
  </graphml>
+
 """
 ks2  = "<key "
 ks3 = "</graphml>"
@@ -59,16 +62,19 @@ root = it.root
 
 x = 336
 y = 213
-i = 1
+i = 11
 for neighbor in root[1].iter('node'):
-	#print neighbor
-	#print neighbor.attrib
+	val = i
+	try:
+		val = neighbor[1].text
+	except:
+		pass
 	child = ET.SubElement(neighbor, 'data', attrib = {'key' : 'd8'})
 	sub = ET.SubElement(child, 'y:ShapeNode')
 	s1 = ET.SubElement(sub, 'y:Geometry', attrib = {'height':'30.0', 'width':'30.0', 'x':str(x), 'y':str(y)})
 	s2 = ET.SubElement(sub, 'y:BorderStyle', attrib = {'color' : "#000000", 'type' :"line", 'width':"1.0"})
 	s3 = ET.SubElement(sub, 'y:NodeLabel', attrib = {'alignment':"center",'autoSizePolicy':"content", 'fontFamily':"Dialog", 'fontSize':"12", 'fontStyle':"plain", 'hasBackgroundColor':"false", 'hasLineColor':"false" ,'height':"18.701171875" ,'modelName':"custom" ,'textColor':"#000000" ,'visible':"true" ,'width':"10.673828125" ,'x':"9.6630859375" , 'y':"5.6494140625"})
-	s3.text = str(i)
+	s3.text = str(val)
 	s4 = ET.SubElement(s3, 'y:LabelModel')
 	s5 = ET.SubElement(s4, 'y:SmartNodeLabelModel', attrib = {'distance': '4.0'})
 	s7 = ET.SubElement(s3, 'y:ModelParameter')
